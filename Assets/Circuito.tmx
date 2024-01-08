@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="60" height="60" tilewidth="30" tileheight="30" infinite="0" nextlayerid="6" nextobjectid="9">
+ <objectgroup id="4" name="Carretera">
+  <object id="1" x="600" y="600" width="600" height="600"/>
+ </objectgroup>
+ <objectgroup id="5" name="Pared">
+  <object id="4" x="300" y="300" width="1200" height="300"/>
+  <object id="5" x="1200" y="600" width="300" height="900"/>
+  <object id="6" x="300" y="600" width="300" height="900"/>
+  <object id="7" x="600" y="1200" width="600" height="300"/>
+ </objectgroup>
+</map>
