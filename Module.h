@@ -1,4 +1,5 @@
 #pragma once
+#include "Globals.h"
 
 class Application;
 struct PhysBody3D;
@@ -11,7 +12,7 @@ private :
 public:
 	Application* App;
 
-	Module(Application* parent, bool start_enabled = true) : App(parent)
+	Module(Application* parent, bool start_enabled = true) : App(parent), enabled(start_enabled)
 	{}
 
 	virtual ~Module()
