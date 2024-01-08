@@ -20,6 +20,11 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
+	// Create sensor cube (will trigger with car)
+	sensor_cube = App->physics->AddBody(Cube(5, 5, 5), 0.0);
+	sensor_cube->SetAsSensor(true);
+	sensor_cube->SetPos(0, 3, 0);
+
 	return ret;
 }
 

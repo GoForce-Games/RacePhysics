@@ -17,6 +17,7 @@ public:
 
 	bool Start();
 	update_status Update(float dt);
+	void OnCollision(PhysBody3D* body1, PhysBody3D* body2) override;
 	bool CleanUp();
 
 public:

@@ -97,8 +97,9 @@ bool ModulePlayer::Start()
 	car.wheels[3].steering = false;
 
 	vehicle = App->physics->AddVehicle(car);
+	vehicle->collision_listeners.add(this); // Add this module as listener to callbacks from vehicle
 	vehicle->SetPos(0, 12, 10);
-	
+
 	return true;
 }
 
@@ -151,4 +152,10 @@ update_status ModulePlayer::Update(float dt)
 }
 
 
+void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
+{
+	// Randomly teleport the sensor cube around 1st quadrant
+	if (body1 == App->scene_intro->sensor_cube)	body1->SetPos(20 * rand() / RAND_MAX, 3, 20 * rand() / RAND_MAX);
+	if (body2 == App->scene_intro->sensor_cube)	body2->SetPos(20 * rand() / RAND_MAX, 3, 20 * rand() / RAND_MAX);
+}
 

@@ -220,7 +220,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Sphere& sphere, float mass)
 
 
 // ---------------------------------------------------------
-PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass)
+PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass, bool is_sensor)
 {
 	btCollisionShape* colShape = new btBoxShape(btVector3(cube.size.x*0.5f, cube.size.y*0.5f, cube.size.z*0.5f));
 	shapes.add(colShape);
@@ -238,6 +238,9 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass)
 
 	btRigidBody* body = new btRigidBody(rbInfo);
 	PhysBody3D* pbody = new PhysBody3D(body);
+
+	// Collision without physics callbacks
+	if (is_sensor) body->setCollisionFlags(btCollisionObject::CF_NO_CONTACT_RESPONSE);
 
 	body->setUserPointer(pbody);
 	world->addRigidBody(body);
@@ -326,6 +329,7 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 	// ---------------------
 
 	PhysVehicle3D* pvehicle = new PhysVehicle3D(body, vehicle, info);
+	body->setUserPointer(pvehicle); // Add our custom class as "user pointer" within bullet body
 	world->addVehicle(vehicle);
 	vehicles.add(pvehicle);
 
