@@ -18,7 +18,10 @@ public:
 	Entity(EntityType type, Application* application, bool start_enabled = true);
 	~Entity();
 
+	// Initializes the entity. WARNING: Do NOT delete the entity from within this method
 	virtual bool Init() = 0;
+
+	// Updates the entity. WARNING: Do NOT delete the entity from within this method
 	virtual bool Update(float dt) = 0;
 
 	virtual bool CleanUp();

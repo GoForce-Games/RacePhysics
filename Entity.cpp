@@ -11,7 +11,6 @@ Entity::Entity(EntityType type, Application* application, bool start_enabled) : 
 Entity::~Entity()
 {
 	Entity::CleanUp();
-	App->entities->RemoveEntity(this);
 }
 
 bool Entity::CleanUp()
@@ -20,5 +19,6 @@ bool Entity::CleanUp()
 		delete pbody;
 		pbody = nullptr;
 	}
+	App->entities->RemoveEntity(this);
 	return true;
 }
