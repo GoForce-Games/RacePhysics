@@ -21,7 +21,7 @@ bool ModulePlayer::Start()
 	VehicleInfo car;
 
 	// Car properties ----------------------------------------
-	car.chassis_size.Set(2, 2, 4);
+	car.chassis_size.Set(2, 2, 10);
 	car.chassis_offset.Set(0, 1.5, 0);
 	car.mass = 500.0f;
 	car.suspensionStiffness = 15.88f;
@@ -114,10 +114,16 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update(float dt)
 {
+	
+	//App->camera->LookAt(vehicle->GetPos().y);
+	
 	turn = acceleration = brake = 0.0f;
+	
+	App->camera->LookAt(vehicle->GetPos());
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
+		//App->camera->LookAt(vehicle->GetPos().x);
 		acceleration = MAX_ACCELERATION;
 	}
 
@@ -135,12 +141,13 @@ update_status ModulePlayer::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
+		acceleration = -MAX_ACCELERATION;
 		brake = BRAKE_POWER;
 	}
 
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
-	vehicle->Brake(brake);
+	vehicle->Brake(brake); 
 
 	vehicle->Render();
 
