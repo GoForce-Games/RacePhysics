@@ -3,6 +3,8 @@
 
 #include "Globals.h"
 
+//MODIFIED FROM ORIGINAL
+
 /**
 * Contains items from double linked list
 */
@@ -214,5 +216,17 @@ public:
 
 		return (NULL);
 	}
+
+	//Operators
+
+	p2List_item<tdata>* operator +=(const tdata& item)
+	{
+		return add(item);
+	}
+
+	bool operator -=(const tdata& item) {
+		return del(findNode(item));
+	}
+
 };
 #endif /*__p2List_H__*/

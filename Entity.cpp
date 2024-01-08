@@ -5,11 +5,12 @@
 
 Entity::Entity(EntityType type, Application* application, bool start_enabled) : eType(type), App(application)
 {
+	App->entities->AddEntity(this);
 }
 
 Entity::~Entity()
 {
-	CleanUp();
+	Entity::CleanUp();
 	App->entities->RemoveEntity(this);
 }
 

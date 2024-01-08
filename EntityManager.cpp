@@ -25,6 +25,10 @@ update_status EntityManager::PreUpdate(float dt)
 
 update_status EntityManager::Update(float dt)
 {
+	for (p2List_item<Entity*>* item = entities.getFirst(); item ; item=item->next)
+	{
+		if (item->data) item->data->Update(dt);
+	}
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -47,31 +51,16 @@ bool EntityManager::CleanUp()
 	return true;
 }
 
-Entity* EntityManager::AddEntity(EntityType type)
+bool EntityManager::AddEntity(Entity* entity)
 {
-	Entity* entity = nullptr;
-
-	switch (type)
-	{
-	case EntityType::CHECKPOINT:
-		break;
-	case EntityType::FINISH_LINE:
-		break;
-	case EntityType::UNKNOWN:
-		break;
-	default:
-		break;
-	}
-
 	if (entity) {
-		entities.add(entity);
+		return entities+=entity;
 	}
-
-	return entity;
+	return false;
 }
 
 void EntityManager::RemoveEntity(Entity* entity)
 {
 	if (!cleaning_up)
-	entities.del(entities.findNode(entity));
+		entities-=entity;
 }

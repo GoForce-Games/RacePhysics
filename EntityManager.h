@@ -22,7 +22,7 @@ public:
 
 	bool CleanUp();
 
-	Entity* AddEntity(EntityType type);
+	bool AddEntity(Entity* type);
 
 	void RemoveEntity(Entity* entity);
 
