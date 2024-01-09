@@ -112,11 +112,8 @@ bool ModulePlayer::Start()
 
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->surface = (car.chassis_size.x * car.chassis_size.y * car.chassis_size.z) * 0.5;
-	vehicle->SetPos(0, 530, -25);
-
-	vehicle = App->physics->AddVehicle(car);
-	vehicle->collision_listeners.add(this); // Add this module as listener to callbacks from vehicle
 	vehicle->SetPos(0, 12, 10);
+	vehicle->collision_listeners.add(this); // Add this module as listener to callbacks from vehicle
 
 	return true;
 }
