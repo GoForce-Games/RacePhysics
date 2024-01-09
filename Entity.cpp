@@ -13,6 +13,12 @@ Entity::~Entity()
 	Entity::CleanUp();
 }
 
+bool Entity::Update(float dt)
+{
+	//TODO update position and rotation if pbody is present
+	return EntityUpdate(dt);
+}
+
 bool Entity::CleanUp()
 {
 	if (pbody) {

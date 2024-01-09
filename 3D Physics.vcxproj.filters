@@ -19,6 +19,9 @@
     <Filter Include="Sources\Modules\Game">
       <UniqueIdentifier>{83f46af7-e02f-40c0-9e56-41d76082527b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Entities">
+      <UniqueIdentifier>{0725a55d-181e-435e-b37f-9fbc74b22a33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -84,10 +87,13 @@
     <ClInclude Include="ModulePlayer.h">
       <Filter>Sources\Modules\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Sources\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckPoint.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -144,9 +150,12 @@
     <ClCompile Include="ModulePlayer.cpp">
       <Filter>Sources\Modules\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Sources\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckPoint.cpp" />
   </ItemGroup>
 </Project>

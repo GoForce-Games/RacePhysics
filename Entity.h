@@ -22,7 +22,10 @@ public:
 	virtual bool Init() = 0;
 
 	// Updates the entity. WARNING: Do NOT delete the entity from within this method
-	virtual bool Update(float dt) = 0;
+	bool Update(float dt);
+
+	// Custom logic on a per-entity basis
+	virtual bool EntityUpdate(float dt) = 0;
 
 	virtual bool CleanUp();
 
@@ -30,7 +33,7 @@ public:
 
 	virtual btVector3 GetPosition() { return position; }
 
-	virtual btVector3 GetRotation() { return btVector3(0,0,0); }
+	virtual btVector3 GetRotation() { return rotation; }
 
 public:
 
@@ -40,6 +43,7 @@ public:
 private:
 
 	btVector3 position;
+	btVector3 rotation;
 
 	PhysBody3D* pbody = nullptr;
 };
