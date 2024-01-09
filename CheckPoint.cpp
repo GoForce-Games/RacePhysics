@@ -1,6 +1,6 @@
 #include "CheckPoint.h"
 
-Checkpoint::Checkpoint(Application* parent, CheckpointType type) : Entity(EntityType::CHECKPOINT, parent)
+Checkpoint::Checkpoint(Application* parent, CheckpointType type) : Entity(EntityType::CHECKPOINT, parent), cpType(type)
 {}
 
 Checkpoint::~Checkpoint()
