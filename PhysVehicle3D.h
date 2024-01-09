@@ -26,6 +26,13 @@ struct VehicleInfo
 	
 	vec3 chassis_size;
 	vec3 chassis_offset;
+	vec3 vertical_wing_size;
+	vec3 vertical_wing_offset;
+	vec3 rear_wing_size;
+	vec3 rear_wing_offset;
+	vec3 person_size;
+	vec3 person_offset;
+
 	float mass;
 	float suspensionStiffness; // default to 5.88 / 10.0 offroad / 50.0 sports car / 200.0 F1 car
 	float suspensionCompression; // default to 0.83
@@ -58,4 +65,8 @@ public:
 
 	VehicleInfo info;
 	btRaycastVehicle* vehicle;
+
+	double surface; // Effective wet surface
+	double cl = 3; // Lift coefficient
+	double cd = 3; // Drag coefficient
 };
