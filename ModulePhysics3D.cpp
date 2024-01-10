@@ -65,6 +65,36 @@ bool ModulePhysics3D::Start()
 		btRigidBody* body = new btRigidBody(rbInfo);
 		world->addRigidBody(body);
 	}
+	/*float mass = 1000000.0f;
+    Cube c(40, 30, 135);
+	AddBody(c , mass, false)->SetPos(-30, 0, -37);
+	
+	Cube c1(20, 30, 60);
+	AddBody(c1, mass, false)->SetPos(20, 0, 30);
+
+	Cube c2(100, 30, 20);
+	AddBody(c2, mass, false)->SetPos(-35, 0, 71);
+
+	Cube c3(80, 30, 100);
+	AddBody(c3, mass, false)->SetPos(-125, 0, 15);
+	
+	Cube c4(90, 30, 40);
+	AddBody(c4, mass, false)->SetPos(-95, 0, -85);
+
+	Cube c5(40, 30, 90);
+	AddBody(c5, mass, false)->SetPos(-185, 0, -80);
+
+	Cube c6(150, 30, 30);
+	AddBody(c6, mass, false)->SetPos(-90, 0, -140);
+
+	Cube c7(80, 30, 80);
+	AddBody(c7, mass, false)->SetPos(30, 0, -65);
+
+	Cube c8(70, 30, 80);
+	AddBody(c8, mass, false)->SetPos(35, 0, -145);
+
+	Cube c9(140, 30, 30);
+	AddBody(c9, mass, false)->SetPos(35, 0, -215);*/
 
 	return true;
 }
@@ -105,7 +135,7 @@ update_status ModulePhysics3D::PreUpdate(float dt)
 			}
 		}
 	}
-
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -135,6 +165,12 @@ update_status ModulePhysics3D::Update(float dt)
 			AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
 		}
 	}
+	
+	
+
+	
+	
+	
 
 	return UPDATE_CONTINUE;
 }
