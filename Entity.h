@@ -1,5 +1,6 @@
 #pragma once
 #include "Bullet/include/btBulletCollisionCommon.h"
+#include "SString.h"
 
 class Application;
 struct PhysBody3D;
@@ -37,8 +38,8 @@ public:
 
 public:
 
+	SString name;
 	EntityType eType;
-
 
 private:
 

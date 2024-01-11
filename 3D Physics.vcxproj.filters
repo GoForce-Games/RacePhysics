@@ -93,7 +93,15 @@
     <ClInclude Include="Entity.h">
       <Filter>Sources\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="CheckPoint.h" />
+    <ClInclude Include="CheckPoint.h">
+      <Filter>Sources\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="RaceManager.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="SString.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -156,6 +164,11 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Sources\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="CheckPoint.cpp" />
+    <ClCompile Include="CheckPoint.cpp">
+      <Filter>Sources\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="RaceManager.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

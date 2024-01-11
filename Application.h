@@ -13,6 +13,7 @@
 #include "ModulePhysics3D.h"
 #include "ModulePlayer.h"
 #include "EntityManager.h"
+#include "RaceManager.h"
 
 class Application
 {
@@ -26,6 +27,7 @@ public:
 	ModulePhysics3D* physics;
 	ModulePlayer* player;
 	EntityManager* entities;
+	RaceManager* race_manager;
 
 private:
 

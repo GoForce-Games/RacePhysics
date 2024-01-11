@@ -25,11 +25,16 @@ update_status EntityManager::PreUpdate(float dt)
 
 update_status EntityManager::Update(float dt)
 {
+	update_status ret = update_status::UPDATE_CONTINUE;
 	for (p2List_item<Entity*>* item = entities.getFirst(); item ; item=item->next)
 	{
-		if (item->data) item->data->Update(dt);
+		if (item->data && !item->data->Update(dt))
+		{
+			ret = update_status::UPDATE_ERROR;
+			LOG("Error on entity %s", item->data->name.GetString());
+		}
 	}
-	return update_status::UPDATE_CONTINUE;
+	return ret;
 }
 
 update_status EntityManager::PostUpdate(float dt)
