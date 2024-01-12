@@ -65,7 +65,7 @@ bool ModulePhysics3D::Start()
 		btRigidBody* body = new btRigidBody(rbInfo);
 		world->addRigidBody(body);
 	}
-	/*float mass = 1000000.0f;
+	float mass = 1000000.0f;
     Cube c(40, 30, 135);
 	AddBody(c , mass, false)->SetPos(-30, 0, -37);
 	
@@ -94,7 +94,31 @@ bool ModulePhysics3D::Start()
 	AddBody(c8, mass, false)->SetPos(35, 0, -145);
 
 	Cube c9(140, 30, 30);
-	AddBody(c9, mass, false)->SetPos(35, 0, -215);*/
+	AddBody(c9, mass, false)->SetPos(35, 0, -215);
+
+	Cube c10(10, 30, 47);
+	AddBody(c10, mass, false)->SetPos(-20, 0, -175);
+
+	/*Cube c11(140, 30, 30);
+	AddBody(c11, mass, false)->SetPos(35, 0, -215);*/
+
+	Cube c12(40, 30, 100);
+	AddBody(c12, mass, false)->SetPos(125, 0, -159);
+
+	Cube c13(20, 30, 140);
+	AddBody(c13, mass, false)->SetPos(60, 0, 45);
+
+	Cube c14( 10, 30, 140);
+	AddBody(c14, mass, false)->SetPos(26, 0, 130);
+
+	Cube c15(140, 30, 30);
+	AddBody(c15, mass, false)->SetPos(100, 0, 155);
+
+	Cube c16(60, 30, 210);
+	AddBody(c16, mass, false)->SetPos(94, 10, 10);
+
+	Cube c11(20, 30, 248);
+	AddBody(c11, mass, false)->SetPos(155, 20, 17);
 
 	return true;
 }
