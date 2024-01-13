@@ -79,6 +79,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="CheckPoint.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="Defs.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="glmath.h" />

@@ -1,7 +1,7 @@
 #include "RaceManager.h"
 #include "CheckPoint.h"
 
-RaceManager::RaceManager(Application* parent, bool start_enabled)
+RaceManager::RaceManager(Application* parent, bool start_enabled) : Module(parent,start_enabled)
 {
 }
 
