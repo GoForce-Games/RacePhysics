@@ -65,7 +65,7 @@ bool ModulePhysics3D::Start()
 		btRigidBody* body = new btRigidBody(rbInfo);
 		world->addRigidBody(body);
 	}
-	/*float mass = 1000000.0f;
+	float mass = 1000000.0f;
     Cube c(40, 30, 135);
 	AddBody(c , mass, false)->SetPos(-30, 0, -37);
 	
@@ -115,7 +115,7 @@ bool ModulePhysics3D::Start()
 	AddBody(c16, mass, false)->SetPos(94, 10, 10);
 
 	Cube c11(20, 30, 248);
-	AddBody(c11, mass, false)->SetPos(155, 20, 17);*/
+	AddBody(c11, mass, false)->SetPos(155, 20, 17);
 
 	return true;
 }
