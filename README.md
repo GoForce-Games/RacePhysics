@@ -31,9 +31,9 @@ An amazing Bullet 3D Physics Racing Videogame.
 	
     - F3 set initial mass
    
-    - F6 activate physics
+    - F6 desactivate physics
    
-    - F7 desactivate physics
+    - F7 activate physics
 
 ## Additional comments
 This game has been done thanks to [SDL](https://www.libsdl.org/index.php) and [BulletPhysics](http://github.com/bulletphysics/bullet3)
