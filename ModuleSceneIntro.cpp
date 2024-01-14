@@ -44,7 +44,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.axis = true;
 	p.Render();
 
-	Cube suelo(300, 0, 300);
+	Cube suelo(400, 0, 400);
 	suelo.Render();
 
 	Cube c(40, 30, 135);
