@@ -25,6 +25,8 @@ public:
 	// Updates the entity. WARNING: Do NOT delete the entity from within this method
 	bool Update(float dt);
 
+	PhysBody3D* GetBody() { return pbody; }
+
 	// Custom logic on a per-entity basis
 	virtual bool EntityUpdate(float dt) = 0;
 
@@ -41,7 +43,7 @@ public:
 	SString name;
 	EntityType eType;
 
-private:
+protected:
 
 	btVector3 position;
 	btVector3 rotation;

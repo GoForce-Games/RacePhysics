@@ -171,5 +171,8 @@
     <ClCompile Include="RaceManager.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="RaceProgress.h">
+      <Filter>Sources\Containers</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -2,6 +2,8 @@
 #include "Module.h"
 #include "Globals.h"
 #include "p2Point.h"
+#include "CheckPoint.h"
+#include "RaceProgress.h"
 
 struct PhysVehicle3D;
 
@@ -20,6 +22,9 @@ public:
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2) override;
 	bool CleanUp();
 
+	void ResetOrientation();
+	void BackToLastCp();
+
 public:
 
 	PhysVehicle3D* vehicle;
@@ -27,4 +32,8 @@ public:
 	int state;
 	float acceleration;
 	float brake;
+
+	RaceProgress raceData;
+	p2List_item<Checkpoint*>* currentCheckpoint;
+
 };

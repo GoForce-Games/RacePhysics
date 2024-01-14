@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "p2List.h"
+#include "RaceProgress.h"
 
 class Checkpoint;
 
@@ -24,9 +25,14 @@ public:
 	Checkpoint* AddCheckpoint(Checkpoint* cp);
 	void RemoveCheckpoint(Checkpoint* cp);
 
+	void CheckFinished(RaceProgress& data);
+
+	//MUST BE CALLED AFTER CREATING THE CHECKPOINTS
+	RaceProgress CreatePlayer(SString name);
+
 private:
 
-	float raceProgress = 0;
+	int max_laps = 4;
 	p2List<Checkpoint*> checkpoints;
 
 	friend class Checkpoint;

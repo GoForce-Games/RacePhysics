@@ -12,7 +12,7 @@ enum class CheckpointType
 
 class Checkpoint : public Entity
 {
-	Checkpoint(Application* parent, CheckpointType type = CheckpointType::CHECKPOINT);
+	Checkpoint(Application* parent, btVector3 size);
 	~Checkpoint();
 
 	bool Init() override;
@@ -24,10 +24,6 @@ class Checkpoint : public Entity
 	bool StartLineBehavior(float dt);
 	bool FinishLineBehavior(float dt);
 	bool CircuitStartBehavior(float dt);
-
-public:
-
-	CheckpointType cpType;
 
 };
 

@@ -49,3 +49,23 @@ void RaceManager::RemoveCheckpoint(Checkpoint* cp)
 {
 	checkpoints -= cp;
 }
+
+void RaceManager::CheckFinished(RaceProgress& data)
+{
+	if (!data.finished && data.laps >= max_laps) {
+		LOG("Player %s has finished the race!", data.name.GetString());
+	}
+	else if (data.currentCheckpoint != nullptr && data.currentCheckpoint->next == nullptr) {
+		//End of lap reached
+		data.currentCheckpoint = checkpoints.getFirst();
+		data.laps++;
+	}
+}
+
+RaceProgress RaceManager::CreatePlayer(SString name)
+{
+	RaceProgress ret;
+	ret.name = name;
+	ret.currentCheckpoint = checkpoints.getFirst();
+	return ret;
+}

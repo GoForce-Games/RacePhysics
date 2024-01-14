@@ -5,6 +5,7 @@
 
 class btRigidBody;
 class Module;
+class Entity;
 
 // =================================================
 struct PhysBody3D
@@ -26,6 +27,8 @@ private:
 public:
 	p2List<Module*> collision_listeners;
 	bool is_sensor = false;
+
+	Entity* bound_entity = nullptr;
 };
 
 #endif // __PhysBody3D_H__

@@ -115,6 +115,8 @@ bool ModulePlayer::Start()
 	vehicle->SetPos(0, 12, 10);
 	vehicle->collision_listeners.add(this); // Add this module as listener to callbacks from vehicle
 
+	raceData = App->race_manager->CreatePlayer("1");
+
 	return true;
 }
 
@@ -124,6 +126,29 @@ bool ModulePlayer::CleanUp()
 	LOG("Unloading player");
 
 	return true;
+}
+
+void ModulePlayer::ResetOrientation()
+{
+	btQuaternion q = vehicle->vehicle->getChassisWorldTransform().getRotation();
+	q.setX(0);
+	q.setZ(0);
+	q.normalize();
+	btTransform initialTransform = btTransform::getIdentity();
+	initialTransform.setOrigin(vehicle->vehicle->getChassisWorldTransform().getOrigin());
+	initialTransform.setRotation(q);
+	mat4x4 m;
+	initialTransform.getOpenGLMatrix(m.M);
+	vehicle->SetTransform(m.M);
+}
+
+void ModulePlayer::BackToLastCp()
+{
+	if (raceData.currentCheckpoint != nullptr && raceData.currentCheckpoint->data != nullptr) {
+		mat4x4 m;
+		raceData.currentCheckpoint->data->GetBody()->GetTransform(m.M);
+		vehicle->SetTransform(m.M);
+	}
 }
 
 // Update: draw background
@@ -160,6 +185,14 @@ update_status ModulePlayer::Update(float dt)
 		brake = BRAKE_POWER;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
+		ResetOrientation();
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {
+		BackToLastCp();
+	}
+
+
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake); 
@@ -176,8 +209,16 @@ update_status ModulePlayer::Update(float dt)
 
 void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
-	// Randomly teleport the sensor cube around 1st quadrant
-	if (body1 == App->scene_intro->sensor_cube)	body1->SetPos(20 * rand() / RAND_MAX, 3, 20 * rand() / RAND_MAX);
-	if (body2 == App->scene_intro->sensor_cube)	body2->SetPos(20 * rand() / RAND_MAX, 3, 20 * rand() / RAND_MAX);
+	if (body2->bound_entity && body2->bound_entity->eType == EntityType::CHECKPOINT && raceData.currentCheckpoint != nullptr) {
+		Checkpoint* cp = (Checkpoint*)body2->bound_entity;
+		if (cp && cp == raceData.currentCheckpoint->data) {
+			App->race_manager->CheckFinished(raceData);
+		}
+	}
+	else {
+		// Randomly teleport the sensor cube around 1st quadrant
+		if (body1 == App->scene_intro->sensor_cube)	body1->SetPos(20 * rand() / RAND_MAX, 3, 20 * rand() / RAND_MAX);
+		if (body2 == App->scene_intro->sensor_cube)	body2->SetPos(20 * rand() / RAND_MAX, 3, 20 * rand() / RAND_MAX);
+	}
 }
 

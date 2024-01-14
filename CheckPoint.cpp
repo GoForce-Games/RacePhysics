@@ -1,26 +1,9 @@
 #include "CheckPoint.h"
 #include "Application.h"
 
-Checkpoint::Checkpoint(Application* parent, CheckpointType type) : Entity(EntityType::CHECKPOINT, parent), cpType(type)
+Checkpoint::Checkpoint(Application* parent,btVector3 size) : Entity(EntityType::CHECKPOINT, parent)
 {
-	switch (type)
-	{
-	case CheckpointType::START_LINE:
-		name.Create("start_line");
-		break;
-	case CheckpointType::CHECKPOINT:
-		name.Create("checkpoint");
-		break;
-	case CheckpointType::FINISH_LINE:
-		name.Create("finish_line");
-		break;
-	case CheckpointType::CIRCUIT_START:
-		name.Create("circuit_start");
-		break;
-	default:
-		name.Create("unknown_checkpoint");
-		break;
-	}
+	pbody = App->physics->AddBody(Cube(size.x(), size.y(), size.z()), 0, true);
 	App->race_manager->checkpoints += this;
 }
 
