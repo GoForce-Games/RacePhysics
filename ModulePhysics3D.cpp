@@ -117,6 +117,9 @@ bool ModulePhysics3D::Start()
 	Cube c11(20, 30, 248);
 	AddBody(c11, mass, false)->SetPos(155, 20, 17);
 
+	Cube ck(10, 10, 10);
+	AddBody(ck, mass, false)->SetPos(0, 0, 10);
+
 	return true;
 }
 

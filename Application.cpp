@@ -28,6 +28,7 @@ Application::Application()
 	// Scenes
 	AddModule(scene_intro);
 	AddModule(player);
+	AddModule(race_manager);
 
 	// Renderer last!
 	AddModule(renderer3D);
