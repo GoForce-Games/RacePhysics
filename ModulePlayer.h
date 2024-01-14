@@ -32,6 +32,8 @@ public:
 	int state;
 	float acceleration;
 	float brake;
+	btVector3 initial_gravity;
+	btVector3 initial_scaling;
 
 	RaceProgress raceData;
 	p2List_item<Checkpoint*>* currentCheckpoint;

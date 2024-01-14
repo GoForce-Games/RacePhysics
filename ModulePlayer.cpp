@@ -115,6 +115,9 @@ bool ModulePlayer::Start()
 	vehicle->SetPos(0, 12, 10);
 	vehicle->collision_listeners.add(this); // Add this module as listener to callbacks from vehicle
 
+	initial_gravity = vehicle->vehicle->getRigidBody()->getGravity();
+	initial_scaling = vehicle->vehicle->getRigidBody()->getCollisionShape()->getLocalScaling();
+
 	return true;
 }
 
@@ -154,14 +157,31 @@ void ModulePlayer::BackToLastCp()
 		mat4x4 m;
 		cp->GetBody()->GetTransform(m.M);
 		vehicle->SetTransform(m.M);
-		vehicle->Brake(100000);
+		vehicle->vehicle->getRigidBody()->clearForces();
 	}
 }
 
 // Update: draw background
 update_status ModulePlayer::Update(float dt)
 {
-	
+	vec3 pos = vehicle->GetPos();
+	if (pos.y < -500) {
+		btRigidBody* rb = vehicle->vehicle->getRigidBody();
+		btVector3 g = rb->getGravity();
+		g.setY(g.y() - 1);
+		rb->setGravity(g);
+		btVector3 currentScale = vehicle->vehicle->getRigidBody()->getCollisionShape()->getLocalScaling();
+		currentScale *= 0.8f;
+		vehicle->vehicle->getRigidBody()->getCollisionShape()->setLocalScaling(currentScale);
+		
+		if (pos.y < -10000) {
+			rb->setGravity(initial_gravity);
+			vehicle->vehicle->getRigidBody()->getCollisionShape()->setLocalScaling(currentScale);
+			BackToLastCp();
+		}
+	}
+
+
 	//App->camera->LookAt(vehicle->GetPos().y);
 	
 	turn = acceleration = brake = 0.0f;
@@ -197,6 +217,11 @@ update_status ModulePlayer::Update(float dt)
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {
 		BackToLastCp();
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN) {
+		vehicle->SetPos(0, -500, 0);
+		vehicle->vehicle->getRigidBody()->clearForces();
 	}
 
 
