@@ -6,7 +6,7 @@
 struct RaceProgress {
 	SString name;
 	bool finished = false;
-	int total_checkpoints = 0;
+	int checkpoint_progress = 0;
 	int laps = 0;
-	p2List_item<Checkpoint*>* currentCheckpoint = nullptr;
+	p2List_item<Checkpoint*>* current_checkpoint = nullptr;
 };

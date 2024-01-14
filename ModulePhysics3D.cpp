@@ -213,20 +213,20 @@ bool ModulePhysics3D::CleanUp()
 {
 	LOG("Destroying 3D Physics simulation");
 
-	// Remove from the world all collision bodies
-	for(int i = world->getNumCollisionObjects() - 1; i >= 0; i--)
-	{
-		btCollisionObject* obj = world->getCollisionObjectArray()[i];
-		world->removeCollisionObject(obj);
-	}
-
-	for(p2List_item<btTypedConstraint*>* item = constraints.getFirst(); item; item = item->next)
+	for (p2List_item<btTypedConstraint*>* item = constraints.getFirst(); item; item = item->next)
 	{
 		world->removeConstraint(item->data);
 		delete item->data;
 	}
 	
 	constraints.clear();
+
+	// Remove from the world all collision bodies
+	for(int i = world->getNumCollisionObjects() - 1; i >= 0; i--)
+	{
+		btCollisionObject* obj = world->getCollisionObjectArray()[i];
+		world->removeCollisionObject(obj);
+	}
 
 	for(p2List_item<btDefaultMotionState*>* item = motions.getFirst(); item; item = item->next)
 		delete item->data;

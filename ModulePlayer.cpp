@@ -115,8 +115,6 @@ bool ModulePlayer::Start()
 	vehicle->SetPos(0, 12, 10);
 	vehicle->collision_listeners.add(this); // Add this module as listener to callbacks from vehicle
 
-	raceData = App->race_manager->CreatePlayer("1");
-
 	return true;
 }
 
@@ -144,10 +142,19 @@ void ModulePlayer::ResetOrientation()
 
 void ModulePlayer::BackToLastCp()
 {
-	if (raceData.currentCheckpoint != nullptr && raceData.currentCheckpoint->data != nullptr) {
+	if (raceData.current_checkpoint != nullptr) {
+		Checkpoint* cp = nullptr;
+		if (raceData.current_checkpoint->prev != nullptr && raceData.current_checkpoint->prev->data != nullptr)
+			cp = raceData.current_checkpoint->prev->data;
+		/*if (raceData.current_checkpoint != nullptr && raceData.current_checkpoint->data != nullptr)
+			cp = raceData.current_checkpoint->data;*/
+		else
+			cp = App->race_manager->GetLastCheckpoint();
+
 		mat4x4 m;
-		raceData.currentCheckpoint->data->GetBody()->GetTransform(m.M);
+		cp->GetBody()->GetTransform(m.M);
 		vehicle->SetTransform(m.M);
+		vehicle->Brake(100000);
 	}
 }
 
@@ -200,7 +207,7 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Render();
 
 	char title[80];
-	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
+	sprintf_s(title, "%.1f Km/h, checkpoint %i, lap %i/%i%s", vehicle->GetKmh(), raceData.checkpoint_progress,raceData.laps+1,App->race_manager->max_laps,raceData.finished? ", RACE FINISHED":"");
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
@@ -209,9 +216,10 @@ update_status ModulePlayer::Update(float dt)
 
 void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
-	if (body2->bound_entity && body2->bound_entity->eType == EntityType::CHECKPOINT && raceData.currentCheckpoint != nullptr) {
+	if (body2->bound_entity && body2->bound_entity->eType == EntityType::CHECKPOINT && raceData.current_checkpoint != nullptr) {
 		Checkpoint* cp = (Checkpoint*)body2->bound_entity;
-		if (cp && cp == raceData.currentCheckpoint->data) {
+		if (cp && cp == raceData.current_checkpoint->data) {
+			LOG("Next checkpoint");
 			App->race_manager->CheckFinished(raceData);
 		}
 	}

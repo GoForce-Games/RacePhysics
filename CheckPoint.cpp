@@ -1,9 +1,11 @@
 #include "CheckPoint.h"
 #include "Application.h"
+#include "PhysBody3D.h"
 
 Checkpoint::Checkpoint(Application* parent,btVector3 size) : Entity(EntityType::CHECKPOINT, parent)
 {
 	pbody = App->physics->AddBody(Cube(size.x(), size.y(), size.z()), 0, true);
+	pbody->bound_entity = this;
 	App->race_manager->checkpoints += this;
 }
 

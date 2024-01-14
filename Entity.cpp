@@ -22,8 +22,9 @@ bool Entity::Update(float dt)
 bool Entity::CleanUp()
 {
 	if (pbody) {
-		delete pbody;
-		pbody = nullptr;
+		//Idealmente habria que eliminarlo
+		pbody->SetAsSensor(true);
+		pbody->collision_listeners.clear();
 	}
 	App->entities->RemoveEntity(this);
 	return true;
@@ -40,18 +41,31 @@ btTransform Entity::GetTransform()
 	return pos;
 }
 
-void Entity::SetPosition(const btVector3& pos)
+Entity& Entity::SetPosition(const btVector3& pos)
 {
 	if (pbody) {
 		pbody->SetPos(pos.x(), pos.y(), pos.z());
 	}
+	return *this;
 }
 
-void Entity::SetTransform(const btTransform& transform)
+Entity& Entity::SetRotation(const float& yaw, const float& pitch, const float& roll)
+{
+	if (pbody) {
+		btTransform t = GetTransform();
+		btQuaternion q =  btQuaternion(yaw, pitch, roll).normalize();
+		t.setRotation(q);
+		SetTransform(t);
+	}
+	return *this;
+}
+
+Entity& Entity::SetTransform(const btTransform& transform)
 {
 	if (pbody) {
 		mat4x4 m;
 		transform.getOpenGLMatrix(m.M);
 		pbody->SetTransform(m.M);
 	}
+	return *this;
 }

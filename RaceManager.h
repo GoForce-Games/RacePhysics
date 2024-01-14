@@ -25,14 +25,18 @@ public:
 	Checkpoint* AddCheckpoint(Checkpoint* cp);
 	void RemoveCheckpoint(Checkpoint* cp);
 
+	Checkpoint* GetFirstCheckpoint();
+	Checkpoint* GetLastCheckpoint();
+
 	void CheckFinished(RaceProgress& data);
 
 	//MUST BE CALLED AFTER CREATING THE CHECKPOINTS
 	RaceProgress CreatePlayer(SString name);
 
+	int max_laps = 4;
+
 private:
 
-	int max_laps = 4;
 	p2List<Checkpoint*> checkpoints;
 
 	friend class Checkpoint;

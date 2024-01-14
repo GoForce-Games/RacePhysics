@@ -36,8 +36,9 @@ public:
 
 	virtual btTransform GetTransform();
 
-	virtual void SetPosition(const btVector3& pos);
-	virtual void SetTransform(const btTransform& transform);
+	virtual Entity& SetPosition(const btVector3& pos);
+	virtual Entity& SetRotation(const float& yaw, const float& pitch, const float& roll);
+	virtual Entity& SetTransform(const btTransform& transform);
 
 public:
 
