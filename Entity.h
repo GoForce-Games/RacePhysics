@@ -34,9 +34,10 @@ public:
 
 	virtual void OnCollision(PhysBody3D* bodyA, PhysBody3D* bodyB) {}
 
-	virtual btVector3 GetPosition() { return position; }
+	virtual btTransform GetTransform();
 
-	virtual btVector3 GetRotation() { return rotation; }
+	virtual void SetPosition(const btVector3& pos);
+	virtual void SetTransform(const btTransform& transform);
 
 public:
 

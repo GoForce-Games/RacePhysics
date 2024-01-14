@@ -1,6 +1,9 @@
 #include "RaceManager.h"
 #include "CheckPoint.h"
 
+#include "Application.h"
+#include "PhysVehicle3D.h"
+
 RaceManager::RaceManager(Application* parent, bool start_enabled) : Module(parent,start_enabled)
 {
 }
@@ -11,6 +14,14 @@ RaceManager::~RaceManager()
 
 bool RaceManager::Init()
 {
+	Checkpoint* inicio = new Checkpoint(App, btVector3(10, 10, 10)); // Tampoco se de que tamaño hay que hacerlos
+	Checkpoint* cp1 = new Checkpoint(App, btVector3(10, 10, 10)); // Tampoco se de que tamaño hay que hacerlos
+	Checkpoint* cp2 = new Checkpoint(App, btVector3(10, 10, 10)); // Tampoco se de que tamaño hay que hacerlos
+
+	vec3 pos = App->player->vehicle->GetPos();
+	inicio->SetPosition(btVector3(pos.x, pos.y, pos.z));
+
+
 	return true;
 }
 

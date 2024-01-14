@@ -12,6 +12,8 @@ enum class CheckpointType
 
 class Checkpoint : public Entity
 {
+public:
+
 	Checkpoint(Application* parent, btVector3 size);
 	~Checkpoint();
 

@@ -28,3 +28,30 @@ bool Entity::CleanUp()
 	App->entities->RemoveEntity(this);
 	return true;
 }
+
+btTransform Entity::GetTransform()
+{
+	btTransform pos; pos.setIdentity();
+	if (pbody) {
+		mat4x4 m;
+		pbody->GetTransform(m.M);
+		pos.setFromOpenGLMatrix(m.M);
+	}
+	return pos;
+}
+
+void Entity::SetPosition(const btVector3& pos)
+{
+	if (pbody) {
+		pbody->SetPos(pos.x(), pos.y(), pos.z());
+	}
+}
+
+void Entity::SetTransform(const btTransform& transform)
+{
+	if (pbody) {
+		mat4x4 m;
+		transform.getOpenGLMatrix(m.M);
+		pbody->SetTransform(m.M);
+	}
+}
