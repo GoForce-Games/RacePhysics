@@ -44,4 +44,6 @@ public:
 
 
 	PhysBody3D* sensor_cube;
+
+	int musicaFondoFx;
 };

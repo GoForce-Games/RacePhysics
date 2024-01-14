@@ -210,6 +210,9 @@ update_status ModulePlayer::Update(float dt)
 	sprintf_s(title, "%.1f Km/h, checkpoint %i, lap %i/%i%s", vehicle->GetKmh(), raceData.checkpoint_progress,raceData.laps+1,App->race_manager->max_laps,raceData.finished? ", RACE FINISHED":"");
 	App->window->SetTitle(title);
 
+	DragForce();
+	LiftForce();
+
 	return UPDATE_CONTINUE;
 }
 
@@ -228,5 +231,21 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		if (body1 == App->scene_intro->sensor_cube)	body1->SetPos(20 * rand() / RAND_MAX, 3, 20 * rand() / RAND_MAX);
 		if (body2 == App->scene_intro->sensor_cube)	body2->SetPos(20 * rand() / RAND_MAX, 3, 20 * rand() / RAND_MAX);
 	}
+}
+
+void ModulePlayer::DragForce() {
+	float vel = vehicle->GetKmh() * 0.2778; //en m/s
+	float speed = vel - atmosphere.wind;
+	double fdrag = 0.5 * atmosphere.density * speed * speed * vehicle->surface * vehicle->cd;
+	double fd = (-speed) * fdrag;
+	acceleration += fd;
+}
+
+void ModulePlayer::LiftForce() {
+	float vel = vehicle->GetKmh() * 0.2778; //en m/s
+	float speed = vel - atmosphere.wind;
+	double flift = 0.5 * atmosphere.density * speed * speed * vehicle->surface * vehicle->cl;
+	double fl = speed * flift;
+	acceleration += fl;
 }
 

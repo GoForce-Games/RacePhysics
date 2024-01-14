@@ -14,6 +14,8 @@ ModuleSceneIntro::~ModuleSceneIntro()
 // Load assets
 bool ModuleSceneIntro::Start()
 {
+	musicaFondoFx = App->audio->LoadFx("Assets/musicafondo.wav");
+	App->audio->PlayFx(musicaFondoFx);
 	LOG("Loading Intro assets");
 	bool ret = true;
 
@@ -40,6 +42,7 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
+
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();

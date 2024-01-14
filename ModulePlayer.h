@@ -11,6 +11,14 @@ struct PhysVehicle3D;
 #define TURN_DEGREES 15.0f * DEGTORAD
 #define BRAKE_POWER 0.0f
 
+class Atmosphere
+{
+public:
+	float wind = 100;
+
+	float density = 0.225;
+};
+
 class ModulePlayer : public Module
 {
 public:
@@ -25,6 +33,10 @@ public:
 	void ResetOrientation();
 	void BackToLastCp();
 
+	void DragForce();
+	void LiftForce();
+	void BouyancyForce();
+
 public:
 
 	PhysVehicle3D* vehicle;
@@ -35,5 +47,7 @@ public:
 
 	RaceProgress raceData;
 	p2List_item<Checkpoint*>* currentCheckpoint;
+
+	Atmosphere atmosphere;
 
 };
