@@ -38,6 +38,3 @@ An amazing Bullet 3D Physics Racing Videogame.
 ## Additional comments
 This game has been done thanks to [SDL](https://www.libsdl.org/index.php) and [BulletPhysics](http://github.com/bulletphysics/bullet3)
   
-  
-## License
-This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](https://github.com/Xavierlm11/RacingKartProject/blob/main/LICENSE) for further details.
