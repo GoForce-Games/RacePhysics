@@ -4,6 +4,15 @@
 #include "Primitive.h"
 #include "PhysVehicle3D.h"
 #include "PhysBody3D.h"
+#include "ModuleSceneIntro.h"
+#include "ModuleCamera3D.h"
+#include "ModuleInput.h"
+#include "ModulePhysics3D.h"
+#include "RaceManager.h"
+#include "RaceProgress.h"
+#include "Checkpoint.h"
+#include "ModuleAudio.h"
+#include "PhysVehicle3D.h"
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled), vehicle(NULL)
 {
@@ -115,6 +124,8 @@ bool ModulePlayer::Start()
 	vehicle->SetPos(0, 12, 10);
 	vehicle->collision_listeners.add(this); // Add this module as listener to callbacks from vehicle
 
+
+
 	return true;
 }
 
@@ -207,12 +218,30 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Render();
 
 	char title[80];
-	sprintf_s(title, "%.1f Km/h, checkpoint %i, lap %i/%i%s", vehicle->GetKmh(), raceData.checkpoint_progress,raceData.laps+1,App->race_manager->max_laps,raceData.finished? ", RACE FINISHED":"");
+	sprintf_s(title, "%.1f Km/h, checkpoint %i, lap %i/%i%s", vehicle->GetKmh(), raceData.checkpoint_progress,raceData.laps+1,App->race_manager->max_laps,raceData.finished? ", RACE FINISHED":"  ");
 	App->window->SetTitle(title);
 
 	DragForce();
 	LiftForce();
 
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
+
+		vehicle->vehicle->getRigidBody()->setMassProps(2000, vehicle->vehicle->getRigidBody()->getLocalInertia());
+
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+
+		vehicle->vehicle->getRigidBody()->setMassProps(1000, vehicle->vehicle->getRigidBody()->getLocalInertia());
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+
+		physicsEnabled = false;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
+
+		physicsEnabled = true;
+	}
 	return UPDATE_CONTINUE;
 }
 
@@ -234,18 +263,24 @@ void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 }
 
 void ModulePlayer::DragForce() {
-	float vel = vehicle->GetKmh() * 0.2778; //en m/s
-	float speed = vel - atmosphere.wind;
-	double fdrag = 0.5 * atmosphere.density * speed * speed * vehicle->surface * vehicle->cd;
-	double fd = (-speed) * fdrag;
-	acceleration += fd;
+	if (physicsEnabled)
+	{
+		float vel = vehicle->GetKmh() * 0.2778; //en m/s
+		float speed = vel;
+		double fdrag = 0.5 * atmosphere.density * speed * speed * vehicle->surface * vehicle->cd;
+		double fd = (-speed) * fdrag;
+		acceleration += fd;
+	}
 }
 
 void ModulePlayer::LiftForce() {
-	float vel = vehicle->GetKmh() * 0.2778; //en m/s
-	float speed = vel - atmosphere.wind;
-	double flift = 0.5 * atmosphere.density * speed * speed * vehicle->surface * vehicle->cl;
-	double fl = speed * flift;
-	acceleration += fl;
+	if (physicsEnabled)
+	{
+		float vel = vehicle->GetKmh() * 0.2778; //en m/s
+		float speed = vel;
+		double flift = 0.5 * atmosphere.density * speed * speed * vehicle->surface * vehicle->cl;
+		double fl = speed * flift;
+		acceleration += fl;
+	}
 }
 

@@ -44,6 +44,7 @@ public:
 	int state;
 	float acceleration;
 	float brake;
+	bool physicsEnabled = true;
 
 	RaceProgress raceData;
 	p2List_item<Checkpoint*>* currentCheckpoint;
